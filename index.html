@@ -1,0 +1,72 @@
+<!doctype html>
+<!--
+THESIS: Unlock the existing guide, then let its day-by-day interface do the work.
+OWN-WORLD: The guide's Source Serif, Lato, navy, green and flat ruled surfaces.
+STORY: Enter a passphrase, confirm the real offline download, add to Home Screen.
+FIRST VIEWPORT: The unlock form, device-access choice and actual download status.
+FORM: A quiet single-column gate; no new travel branding or decorative imagery.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#142b38">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="An encrypted personal travel guide with offline access.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Singapore">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-apimW8RM46QSUV4C2ts8TGZJpuyr7ziD6vr4i/hRhf8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icon-180.png">
+  <link rel="icon" href="./icon-192.png" type="image/png">
+  <link rel="stylesheet" href="./unlock.css">
+  <script src="./private-common.js" defer></script>
+  <script src="./unlock.js" defer></script>
+  <title>Singapore guide</title>
+</head>
+<body>
+  <header class="lock-header">
+    <div><h1>Singapore</h1><svg viewBox="0 0 24 24" aria-label="Encrypted guide" role="img"><rect x="5" y="10" width="14" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"></path></svg></div>
+  </header>
+  <main class="unlock-page">
+    <h2>Unlock the guide</h2>
+    <p>Enter the shared passphrase. It unlocks the guide on this device and isn't sent to the server.</p>
+    <noscript><p class="error">JavaScript is needed to decrypt this app. Enable it in your browser, or use your separate PDF backup.</p></noscript>
+    <form id="unlock-form" method="post" action="#">
+      <label class="field-label" for="passphrase">Passphrase</label>
+      <div class="password-field">
+        <input id="passphrase" name="passphrase" type="password" autocomplete="current-password" autocapitalize="none" spellcheck="false" required aria-describedby="unlock-error">
+        <button id="show-passphrase" type="button" aria-pressed="false">Show</button>
+      </div>
+      <label class="remember-choice"><input id="remember-access" type="checkbox"><span>Keep unlocked on this device for 30 days<span class="field-note">Only on a device you control. An unlock key is saved here, not your passphrase.</span></span></label>
+      <button id="unlock-button" class="button" type="submit" disabled>Unlock guide</button>
+      <p id="unlock-error" class="error" role="alert" hidden></p>
+      <p id="unlock-note" class="field-note" role="status" aria-live="polite">Preparing the unlock form. If it doesn't load, reconnect and reload the page.</p>
+      <button id="setup-retry" class="button button-secondary" type="button" hidden>Retry unlock setup</button>
+    </form>
+    <div class="offline-panel">
+      <p id="offline-status" role="status" aria-live="polite">Checking the offline download...</p>
+      <div class="actions">
+        <button id="offline-retry" class="button button-secondary" type="button">Check offline download</button>
+        <button id="app-update" class="button button-secondary" type="button" hidden>Update app</button>
+      </div>
+    </div>
+    <details>
+      <summary>Add to iPhone Home Screen</summary>
+      <ol>
+        <li>Open this address in Safari, choose Share, then Add to Home Screen. Enable Open as Web App if offered.</li>
+        <li>Open the new Home Screen icon, unlock the guide and wait for <strong>Ready offline</strong> in Info.</li>
+        <li>Switch on Airplane Mode and reopen the icon once before travelling.</li>
+      </ol>
+      <p>The Home Screen app can have separate storage from Safari. Check the download inside the installed app, not just the browser tab.</p>
+    </details>
+    <details>
+      <summary>How privacy and offline access work</summary>
+      <p>The itinerary, photos and walking maps are encrypted together. The public site contains the unlock screen and encrypted file, not a readable copy of your plans.</p>
+      <p>Anyone with the passphrase can read the guide. Keep it separate from the link. Remembered access lets someone using this unlocked device read it too.</p>
+      <p>The download works without a connection. External Maps directions, booking pages and venue websites still need internet. Browsers can remove saved site data, so retain the PDF as a backup.</p>
+    </details>
+  </main>
+</body>
+</html>

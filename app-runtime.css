@@ -1,0 +1,10 @@
+.private-app-tools{border-top:1px solid var(--line);margin-top:26px;padding-top:23px}
+.private-app-tools .app-actions{display:flex;flex-wrap:wrap;gap:10px;margin:15px 0 22px}
+.private-app-tools [data-state=ready]{color:var(--green);font-weight:700}
+.private-app-tools [data-state=error],.private-app-error{color:#7d2632}
+.private-app-error{background:#fff0f1;padding:12px 14px}
+.private-app-note{color:var(--muted);font-size:14px}
+#phone-app ol{padding-left:23px;max-width:70ch}
+#phone-app li{margin:9px 0;padding-left:4px}
+#phone-app .app-actions button:disabled{background:var(--muted);border-color:var(--muted);color:white}
+@media print{#phone-app,.app-settings-link{display:none!important}}
