@@ -29,7 +29,7 @@
     const material = await crypto.subtle.importKey("raw", encoder.encode(passphrase), "PBKDF2", false, ["deriveKey"]);
     return crypto.subtle.deriveKey(
       {name:"PBKDF2", salt:decode64(meta.salt, 16), iterations, hash:"SHA-256"},
-      material, {name:"AES-GCM", length:256}, false, ["decrypt"],
+      material, {name:"AES-GCM", length:256}, false, ["encrypt", "decrypt"],
     );
   }
 
@@ -255,9 +255,13 @@
       }
       check(true);
     });
-    update.addEventListener("click", () => {
+    update.addEventListener("click", async () => {
       if (!registration?.waiting) {
         show("The update is not ready yet. Check the download again.", "error");
+        return;
+      }
+      try { await window.TripMemoryUI?.flush(); } catch (error) {
+        show(error.message, "error");
         return;
       }
       applying = true;
@@ -266,7 +270,10 @@
       registration.waiting.postMessage({type:"ACTIVATE_UPDATE"});
     });
     navigator.serviceWorker?.addEventListener("controllerchange", () => {
-      if (applying) location.reload();
+      if (applying) {
+        window.TripMemoryUI?.close();
+        location.reload();
+      }
     });
     navigator.serviceWorker?.addEventListener("message", event => {
       if (event.data?.type === "DOWNLOAD_PROGRESS" && busy) {

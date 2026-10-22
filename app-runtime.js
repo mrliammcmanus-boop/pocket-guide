@@ -19,12 +19,14 @@
   lock.addEventListener("click", async () => {
     lock.disabled = true;
     try {
+      await window.TripMemoryUI?.flush();
       await app.forget(session.meta);
+      window.TripMemoryUI?.close();
       session.key = null;
       window.__PRIVATE_GUIDE_SESSION__ = null;
       location.reload();
     } catch (problem) {
-      warning.textContent = "Saved access couldn't be removed, so this device has not been forgotten. Clear this site's data in browser settings before lending the device to someone.";
+      warning.textContent = `The guide has not been locked. ${problem.message} Do not clear site data without exporting a memory backup first.`;
       warning.hidden = false;
       console.error("Lock and forget failed:", problem);
       lock.disabled = false;
